@@ -7,7 +7,7 @@ object Randomize {
 
 
   @tailrec
-  private def setSeed(seed: Long): Unit = {
+   def setSeed(seed: Long): Unit = {
    Utils.Randomize.setSeed(seed)
   }
 

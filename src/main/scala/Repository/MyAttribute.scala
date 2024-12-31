@@ -36,6 +36,11 @@ class MyAttribute private (
 
   // Nombre del atributo
   def name(): String = nombre
+  def setRange(lowerBound: Double, upperBound :Double)={
+    this.lowerBound=lowerBound
+    this.upperBound=upperBound
+    this.amplitude=upperBound-lowerBound
+  }
 }
 
 // Objeto compañero para constantes y métodos estáticos
@@ -48,5 +53,7 @@ private object MyAttribute {
   def isNominal(`type`: Int): Boolean = `type` == NOMINAL
   def isReal(`type`: Int): Boolean = `type` == REAL
   def isInteger(`type`: Int): Boolean = `type` == INTEGER
+
+
 }
 
