@@ -1,19 +1,14 @@
 package Forest
 import Utils.DoubleCompare
 
-class Interval{
-  private var attributeIndex:Int=0
+class Interval(attribute: Int){
+  private val attributeIndex: Int = attribute
   private var subsets: Array[Array[Int]] = Array.empty
-  private var lowerBound: Double= 0
-  private var upperBound: Double= 0
-  private var infoGain: Double= 0
+  private var lowerBound: Double= -1.0
+  private var upperBound: Double= -1.0
+  private var infoGain: Double= -1.0
 
-  def Interval(attribute: Int):Unit={
-    this.attributeIndex=attribute
-    lowerBound = -1.0
-    upperBound = -1.0
-    infoGain = -1.0
-  }
+ 
   def getInterval(value: Double):Int={
      if (DoubleCompare().greaterEquals(value,lowerBound) && DoubleCompare().lessEquals(value,upperBound))
        1

@@ -2,58 +2,56 @@ package Repository
 
 import scala.collection.mutable.ArrayBuffer
 
-class MyAttribute private (
-                            val nombre: String,
-                            val `type`: Int,
-                            private var values: Option[ArrayBuffer[String]] = None,
-                            var lowerBound: Double = 0.0,
-                            var upperBound: Double = 0.0,
-                            var amplitude: Double = 0.0,
-                            private var _index: Int = 0
-                          ) {
-  
-  def index: Int = _index
+class MyAttribute(val name: String, val attributeType: Int, private var _index: Int) {
 
-  
-  def setIndex(newIndex: Int): Unit = {
-    _index = newIndex
-  }
 
-  // Constructor auxiliar para atributos nominales
+
+  private var values: ArrayBuffer[String] = ArrayBuffer.empty[String]
+  private var lowerBound: Double = 0.0
+  private var upperBound: Double = 0.0
+  private var amplitude: Double = 0.0
+
+  // Constructor secundario para atributos nominales
   def this(name: String, values: ArrayBuffer[String], index: Int) = {
-    this(name, MyAttribute.NOMINAL, Some(values), _index = index)
+    this(name, MyAttribute.NOMINAL, index)
+    this.values = values
   }
 
-  // Métodos de verificación del tipo de atributo
-  def isNominal: Boolean = `type` == MyAttribute.NOMINAL
-  def isReal: Boolean = `type` == MyAttribute.REAL
-  def isInteger: Boolean = `type` == MyAttribute.INTEGER
 
-  // Métodos para trabajar con los valores
-  def indexOf(value: String): Int = values.map(_.indexOf(value)).getOrElse(-1)
-  def numValues: Int = values.map(_.size).getOrElse(0)
-  def value(index: Int): String = values.map(_(index)).getOrElse(throw new IndexOutOfBoundsException)
+  // Métodos de acceso a valores
+  def indexOf(value: String): Int = values.indexOf(value)
+  def numValues: Int = values.size
+  def value(index: Int): String = values(index)
 
-  // Nombre del atributo
-  def name(): String = nombre
-  def setRange(lowerBound: Double, upperBound :Double)={
-    this.lowerBound=lowerBound
-    this.upperBound=upperBound
-    this.amplitude=upperBound-lowerBound
+  // Métodos para manejar el rango
+  def setRange(lowerBound: Double, upperBound: Double): Unit = {
+    this.lowerBound = lowerBound
+    this.upperBound = upperBound
+    this.amplitude = upperBound - lowerBound
   }
+
+  def getLowerBound: Double = lowerBound
+  def getUpperBound: Double = upperBound
+  def getAmplitude: Double = amplitude
+
+  def getType: Int = attributeType
+  def getIndex: Int = _index
+  def setIndex(index: Int): Unit = {
+    _index = index
+  }
+
+  // Métodos estáticos
+  def isNominal: Boolean = attributeType == MyAttribute.NOMINAL
+
+  def isReal: Boolean = attributeType == MyAttribute.REAL
+
+  def isInteger: Boolean = attributeType == MyAttribute.INTEGER
 }
 
-// Objeto compañero para constantes y métodos estáticos
-private object MyAttribute {
-  private val NOMINAL = 0
-  private val INTEGER = 1
-  private val REAL = 2
-
-  // Métodos estáticos para verificación de tipo
-  def isNominal(`type`: Int): Boolean = `type` == NOMINAL
-  def isReal(`type`: Int): Boolean = `type` == REAL
-  def isInteger(`type`: Int): Boolean = `type` == INTEGER
-
-
+object MyAttribute {
+  // Constantes de tipo
+  val NOMINAL: Int = 0
+  val INTEGER: Int = 1
+  val REAL: Int = 2
+  
 }
-

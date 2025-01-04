@@ -1,6 +1,5 @@
 package Repository
 
-import java.util.jar.Attributes
 import java.util.Comparator
 import Utils.DoubleCompare
 import Utils.Util
@@ -84,7 +83,7 @@ class MyDataset {
     var values: Array[Double] = _
 
     for (j <- 0 until numInstances) {
-      values = new Array[Double](getNumAttributes())
+      values = new Array[Double](getNumAttributes)
 
       for (i <- 0 until nInputs)
         values(i) = instanceSet.getInputNumericValue(j, i)

@@ -34,4 +34,3 @@ class MyInstance(val value: Array[Double], val classValue: Int) {
 private object MyInstance {
   private val MISSING_VALUE: Double = Double.NaN
 }
-
