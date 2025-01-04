@@ -80,7 +80,7 @@ class MyDataset {
     val classSupp = new Array[Int](nClasses)
 
     var classValue: Int = 0
-    var values: Array[Double] = _
+    var values: Array[Double] =null
 
     for (j <- 0 until numInstances) {
       values = new Array[Double](getNumAttributes)
